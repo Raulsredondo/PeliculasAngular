@@ -1,0 +1,73 @@
+Peliculas: Stream;
+this.Peliculas=
+{
+    "peliculas": [
+      {
+        "id": 1,
+        "nombre": "El sexto sentido",
+        "director": "M. Night Shyamalan",
+        "sinopsis": "Malcolm Crowe es un psicólogo infantil que vive obsesionado por el recuerdo de un joven al que fue incapaz de ayudar. Cuando conoce a Cole, un aterrorizado y confuso niño de ocho años, se le presenta la oportunidad de redimirse haciendo todo lo posible por ayudarlo. Sin embargo, el doctor no está preparado para descubrir la terrible verdad sobre el chico: recibe visitas de espíritus atormentados que lo asustan.",
+        "clasificacion": "Drama"
+      },
+      {
+        "id": 2,
+        "nombre": "Pulp Fiction",
+        "director": "Tarantino",
+        "sinopsis": "La vida de un boxeador, dos sicarios, la esposa de un gánster y dos bandidos se entrelaza en una historia de violencia y redención.",
+        "clasificacion": "Acción"
+      },
+      {
+        "id": 3,
+        "nombre": "Todo Sobre Mi Madre",
+        "director": "Almodobar",
+        "sinopsis": "Una madre soltera reaviva viejas relaciones y hace nuevas a su regreso a Barcelona buscando al padre de su hijo muerto.",
+        "clasificacion": "Drama"
+      },
+      {
+        "id": 4,
+        "nombre": "300",
+        "director": "Zack Snyder",
+        "sinopsis": "En el año 480 antes de Cristo, existe un estado de guerra entre Persia, dirigida por el rey Jerjes, y Grecia. En la batalla de la Termópilas, Leonidas, rey de la ciudad griega de Esparta, encabeza a sus 300 bravos soldados en contra del numeroso ejército persa. A pesar de que la muerte aguarda a los espartanos, su sacrificio inspira a toda Grecia para unirla en contra de su enemigo común.",
+        "clasificacion": "Acción"
+      },
+      {
+        "id": 5,
+        "nombre": "El silencio de los corderos",
+        "director": "Jonathan Demme",
+        "sinopsis": "Una agente en entrenamiento del FBI busca la ayuda y consejo de un brillante asesino para poder capturar a otro asesino, el doctor Hannibal Lecter, un psiquiatra que también es un psicópata violento y antropófago.",
+        "clasificacion": "Drama"
+      },
+      {
+        "id": 6,
+        "nombre": "Forrest Gump",
+        "director": "Robert Zemeckis",
+        "sinopsis": "La simpleza e inocencia de un sureño lo impulsan a través de hechos importantes de la historia moderna de EE.UU.",
+        "clasificacion": "Comedia"
+      },
+      {
+        "id": 7,
+        "nombre": "Las Hurdes",
+        "director": "Luis Buñuel",
+        "sinopsis": "Campesinos de aldea pequeña sobreviven sin los servicios básicos.",
+        "clasificacion": "Documental"
+      }
+    ],
+    "clasificaciones": [
+      {
+        "nombre": "Drama",
+        "id": 1
+      },
+      {
+        "nombre": "Comedia",
+        "id": 2
+      },
+      {
+        "nombre": "Documental",
+        "id": 3
+      },
+      {
+        "nombre": "Acción",
+        "id": 4
+      }
+    ]
+  };
