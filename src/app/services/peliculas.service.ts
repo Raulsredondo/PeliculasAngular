@@ -59,6 +59,29 @@ export class PeliculasService {
     return this.http.get(`${ this.url }/peliculas.json`).pipe(map( this.Arreglo ),delay(0));
   }
 
+  buscarPeliculas( termino: string):PeliculaModel[]{
+
+    const peliArr: PeliculaModel[] = [];
+    termino = termino.toLowerCase();
+
+    for( let i = 0; i < this.getPeliculas.length; i ++ ){
+
+      let heroe = this.getPeliculas[i];
+
+      let nombre = heroe.nombre.toLowerCase();
+      let bio = heroe.bio.toLowerCase();
+      let ano = heroe.aparicion;
+
+      if( nombre.indexOf( termino ) >= 0 || bio.indexOf(termino) >= 0 || ano.indexOf( termino ) >= 0 ){
+        heroe.idx = i;
+        peliArr.push( heroe )
+      }
+      
+    }
+    return peliArr;
+
+  }
+
   private Arreglo( peliculasObj: object ) {
 
     const peliculas: PeliculaModel[] = [];

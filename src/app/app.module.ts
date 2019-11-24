@@ -6,12 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TablaPeliculasComponent } from './components/tabla-peliculas/tabla-peliculas.component';
 import { TablaPeliculaComponent } from './components/tabla-pelicula/tabla-pelicula.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PeliculasComponent } from './components/peliculas/peliculas.component';
+import { PeliculaTarjetaComponent } from './components/pelicula-tarjeta/pelicula-tarjeta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TablaPeliculasComponent,
-    TablaPeliculaComponent
+    TablaPeliculaComponent,
+    NavbarComponent,
+    PeliculasComponent,
+    PeliculaTarjetaComponent
   ],
   imports: [
     BrowserModule,
