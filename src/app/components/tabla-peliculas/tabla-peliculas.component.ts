@@ -43,9 +43,19 @@ export class TablaPeliculasComponent implements OnInit {
 
     });
 
+  
+
 
 
   }
+alerta(pelicula: PeliculaModel){
+
+  Swal.fire({
+ 
+    text: pelicula.sinopsis,
+
+  });
 
 
+}
 }

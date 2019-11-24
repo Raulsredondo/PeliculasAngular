@@ -1,1 +1,108 @@
-<p>tabla-pelicula works!</p>
+<h1>Héroe <small>Nombre del Héroe</small> </h1>
+<hr>
+
+
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger"
+            routerLink="/peliculas">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+
+
+
+<div class="row animated fadeIn faster">
+  <div class="col">
+
+    <form (ngSubmit)="guardar( f )"
+          #f="ngForm">
+
+      <div class="form-group">
+        <label>Firebase ID</label>
+        <input type="text"
+               class="form-control"
+               placeholder="Firebase ID"
+               [(ngModel)]="pelicula.id"
+               name="id"
+               disabled="disabled">
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+
+      <div class="form-group">
+          <label>Nombre</label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="Nombre de la pelicula"
+                 [(ngModel)]="pelicula.nombre"
+                 name="nombre"
+                 required>
+      </div>
+
+      <div class="form-group">
+          <label>Direcctor</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="pelicula.direcctor"
+                 name="direcctor"
+                 placeholder="Direcctor de la Pelicula">
+      </div>
+
+      <div class="form-group">
+        <label>Sinopsis</label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="pelicula.sinopsis"
+               name="sinopsis"
+               placeholder="Sinopsis de la Pelicula">
+      </div>
+
+      <div class="form-group">
+        <label>clasificacion</label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="pelicula.clasificacion"
+               name="clasificacion"
+               placeholder="clasificacion de la Pelicula">
+    </div>
+
+      <div class="form-group">
+        <label>Fav</label>
+        <br>
+
+        <button *ngIf="pelicula.fav" 
+                (click)="pelicula.fav = false"
+                class="btn btn-outline-warning w-10" type="button">
+                <i class="fas fa-star"></i>
+          Si
+        </button>
+
+        <button *ngIf="!pelicula.fav" 
+                (click)="pelicula.fav = true"
+                class="btn btn-outline-warning w-10" type="button">
+              <i class="far fa-star"></i>
+            No
+        </button>
+
+      </div>
+
+
+
+      <hr>
+      <div class="form-group text-center">
+        <button type="submit"
+                class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+
+
+    </form>
+
+
+  </div>
+</div>

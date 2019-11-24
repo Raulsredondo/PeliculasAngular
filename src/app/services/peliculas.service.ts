@@ -9,7 +9,7 @@ import { map, delay } from 'rxjs/operators';
 })
 export class PeliculasService {
 
-  private url = 'https://angular-firebase-heroes-69575.firebaseio.com/';
+  private url = 'https://angular-ioninc.firebaseio.com/';
 
 
   constructor( private http: HttpClient ) { }
@@ -17,7 +17,7 @@ export class PeliculasService {
 
   crearPelicula( pelicula: PeliculaModel ) {
 
-    return this.http.post(`${ this.url }/heroes.json`, pelicula)
+    return this.http.post(`${ this.url }/peliculas.json`, pelicula)
             .pipe(
               map( (resp: any) => {
                 pelicula.id = resp.name;
@@ -29,40 +29,37 @@ export class PeliculasService {
 
   actualizarPelicula( pelicula: PeliculaModel ) {
 
-    const heroeTemp = {
+    const peliTemp = {
       ...pelicula
     };
 
-    delete heroeTemp.id;
+    delete peliTemp.id;
 
-    return this.http.put(`${ this.url }/heroes/${ pelicula.id }.json`, heroeTemp);
+    return this.http.put(`${ this.url }/peliculas/${ pelicula.id }.json`, peliTemp);
 
 
   }
 
   borrarPelicula( id: string ) {
 
-    return this.http.delete(`${ this.url }/heroes/${ id }.json`);
+    return this.http.delete(`${ this.url }/peliculas/${ id }.json`);
 
   }
 
 
   getPelicula( id: string ) {
 
-    return this.http.get(`${ this.url }/heroes/${ id }.json`);
+    return this.http.get(`${ this.url }/peliculas/${ id }.json`);
 
   }
 
 
   getPeliculas() {
-    return this.http.get(`${ this.url }/heroes.json`)
-            .pipe(
-              map( this.crearArreglo ),
-              delay(0)
-            );
+    
+    return this.http.get(`${ this.url }/peliculas.json`).pipe(map( this.Arreglo ),delay(0));
   }
 
-  private crearArreglo( peliculasObj: object ) {
+  private Arreglo( peliculasObj: object ) {
 
     const peliculas: PeliculaModel[] = [];
 
