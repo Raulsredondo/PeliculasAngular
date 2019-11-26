@@ -1,11 +1,11 @@
 <div class="card animated fadeIn fast" >
-    <img class="card-img-top img-fluid"  [alt]="pelicula.nombre">
+    <img class="card-img-top img-fluid"   [alt]="pelicula.nombre">
     <div class="card-body">
       <h4 class="card-title">{{ pelicula.nombre }}</h4>
       <p class="card-text"> {{ pelicula.direcctor }} </p>
       <p class="card-text"><small class="text-muted">{{ pelicula.clasificacion }}</small></p>
   
-      <button (click)="verHeroe()"
+      <button (click)="verPelicula()"
         type="button" class="btn btn-outline-primary btn-block">
         Ver más...
       </button>

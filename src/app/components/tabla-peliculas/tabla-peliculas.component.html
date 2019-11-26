@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col text-right">
-    <button routerLink="/pelicula/nuevo" class="btn btn-primary">
+    <button routerLink="/peliculaTabla/nuevo" class="btn btn-primary">
       <i class="fa fa-plus"></i>
       Agregar
     </button>
@@ -41,12 +41,12 @@
       <td>
 
         <button class="btn btn-info mr-1"
-                [routerLink]="['/pelicula', pelicula.id ]">
+                [routerLink]="['/peliculaTabla', pelicula.id ]">
           <i class="fa fa-pen"></i>
         </button>
 
         <button class="btn btn-danger"
-                (click)="borrarPelicula( pelicula, i ) ">
+                (click)="borrarPelicula( peliculaTabla, i ) ">
           <i class="fa fa-trash"></i>
         </button>
 
