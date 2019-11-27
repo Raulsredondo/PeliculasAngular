@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PeliculaTarjetaComponent implements OnInit {
 
-  @Input() heroe: any = {};
+  @Input() pelicula: any = {};
   @Input() index: number;
 
   @Output() peliculaSeleccionada: EventEmitter<number>;
@@ -20,9 +20,9 @@ export class PeliculaTarjetaComponent implements OnInit {
   ngOnInit() {
   }
 
-  verHeroe() {
+  verPelicula() {
     // console.log(  this.index );
-    this.router.navigate( ['/heroe', this.index] );
+    this.router.navigate( ['/pelicula', this.index] );
     // this.heroeSeleccionado.emit( this.index );
   }
 
