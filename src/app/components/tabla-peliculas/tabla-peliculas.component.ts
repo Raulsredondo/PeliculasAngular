@@ -51,7 +51,7 @@ export class TablaPeliculasComponent implements OnInit {
 alerta(pelicula: PeliculaModel){
 
   Swal.fire({
- 
+    showConfirmButton: false,
     text: pelicula.sinopsis,
 
   });

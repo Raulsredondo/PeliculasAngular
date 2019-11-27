@@ -9,6 +9,7 @@ import { TablaPeliculaComponent } from './components/tabla-pelicula/tabla-pelicu
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PeliculasComponent } from './components/peliculas/peliculas.component';
 import { PeliculaTarjetaComponent } from './components/pelicula-tarjeta/pelicula-tarjeta.component';
+import { PeliculaComponent } from './components/pelicula/pelicula.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PeliculaTarjetaComponent } from './components/pelicula-tarjeta/pelicula
     TablaPeliculaComponent,
     NavbarComponent,
     PeliculasComponent,
-    PeliculaTarjetaComponent
+    PeliculaTarjetaComponent,
+    PeliculaComponent
   ],
   imports: [
     BrowserModule,

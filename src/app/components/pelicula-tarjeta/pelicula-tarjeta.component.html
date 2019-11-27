@@ -1,15 +1,20 @@
-<div class="card animated fadeIn fast" >
-    <img class="card-img-top img-fluid"   [alt]="pelicula.nombre">
-    <div class="card-body">
-      <h4 class="card-title">{{ pelicula.nombre }}</h4>
-      <p class="card-text"> {{ pelicula.direcctor }} </p>
+<div class="card animated fadeIn fast">
+  <img class="card-img-top img-fluid" [alt]="pelicula.nombre" (click)="verPelicula()">
+  <div class="card-body">
+    <h4 class="card-title">{{ pelicula.nombre }}</h4>
+    <p class="card-text"> {{ pelicula.direcctor }} </p>
+    <div class="row">
       <p class="card-text"><small class="text-muted">{{ pelicula.clasificacion }}</small></p>
-  
-      <button (click)="verPelicula()"
-        type="button" class="btn btn-outline-primary btn-block">
-        Ver más...
-      </button>
-      <!-- <a [routerLink]="['/heroe',i]" class="btn btn-outline-primary">Ver más link...</a> -->
-  
+      <p class="card-text">
+        <label *ngIf="pelicula.fav" class="badge badge-outline-warning"><i class="fas fa-star text-warning"></i></label>
+        <label *ngIf="!pelicula.fav" class="badge badge-outline-warning"><i class="far fa-star text-warning"></i></label>
+      </p>
     </div>
+
+    <button (click)="verPelicula()" type="button" class="btn btn-outline-primary btn-block">
+      Ver más...
+    </button>
+    <!-- <a [routerLink]="['/heroe',i]" class="btn btn-outline-primary">Ver más link...</a> -->
+
   </div>
+</div>
