@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class PeliculasComponent implements OnInit {
 
-  heroes2:PeliculaModel[] = [];
+  pelicula:PeliculaModel[] = [];
 
   constructor( private _peliculasService:PeliculasService,
                private router:Router
@@ -19,14 +19,14 @@ export class PeliculasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._peliculasService.getPeliculas();
+   this.pelicula = this._peliculasService.getPeliculas();
 
   
     // console.log( this.heroes );
   }
 
   verHeroe( idx:number ){
-    this.router.navigate( ['/heroe',idx] );
+    this.router.navigate( ['/pelicula',idx] );
   }
 
 }
