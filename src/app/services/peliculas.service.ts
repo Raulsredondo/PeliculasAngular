@@ -48,8 +48,15 @@ export class PeliculasService {
 
 
   getPelicula( id: string ) {
+    
 
     return this.http.get(`${ this.url }/peliculas/${ id }.json`);
+
+  }
+
+  getPelicula2( id: string ) {
+
+    return this.http.get(`${ this.url }/peliculas/${ id }.json`).pipe(map( this.Arreglo ),delay(0));
 
   }
 

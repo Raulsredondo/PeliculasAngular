@@ -17,6 +17,7 @@ export class PeliculasComponent implements OnInit {
                private router:Router
                 ) {
     // console.log("constructor");
+    
   }
 
   ngOnInit() {

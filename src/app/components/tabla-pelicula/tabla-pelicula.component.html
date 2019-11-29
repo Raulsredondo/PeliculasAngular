@@ -53,15 +53,14 @@
 
       <div class="form-group">
         <label>Sinopsis</label>
-        <input type="text"
-               class="form-control"
-               [(ngModel)]="pelicula.sinopsis"
-               name="sinopsis"
-               placeholder="Sinopsis de la Pelicula">
+        <textarea type="text" class="form-control" [(ngModel)]="pelicula.sinopsis" name="sinopsis"
+        placeholder="Sinopsis de la Pelicula" id="" cols="30" rows="8"></textarea>
+        
       </div>
 
       <div class="form-group">
         <label>Genero</label>
+        
         <input type="text"
                class="form-control"
                [(ngModel)]="pelicula.clasificacion"
