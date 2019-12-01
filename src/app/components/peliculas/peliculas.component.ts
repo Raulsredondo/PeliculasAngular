@@ -17,6 +17,7 @@ export class PeliculasComponent implements OnInit {
                private router:Router
                 ) {
     // console.log("constructor");
+    
   }
 
   ngOnInit() {
@@ -28,8 +29,8 @@ export class PeliculasComponent implements OnInit {
   }
 
 
-  verPelicula( idx:number ){
-    this.router.navigate( ['/pelicula',idx] );
+  verPelicula( hola: PeliculaModel ){
+    this.router.navigate( ['/pelicula', hola] );
   }
 
 }

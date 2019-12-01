@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PeliculaModel } from '../models/Pelicula.model';
 import { map, delay } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 
 @Injectable({
@@ -12,8 +14,17 @@ export class PeliculasService {
   private url = 'https://angular-ioninc.firebaseio.com/';
 
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient, private storage: AngularFireStorage) { }
 
+    //Tarea para subir archivo
+    tareaCloudStorage(nombreArchivo: string, datos: any) {
+      return this.storage.upload(nombreArchivo, datos);
+    }
+  
+    //Referencia del archivo
+    referenciaCloudStorage(nombreArchivo: string) {
+      return this.storage.ref(nombreArchivo);
+    }
 
   crearPelicula( pelicula: PeliculaModel ) {
 
@@ -48,6 +59,7 @@ export class PeliculasService {
 
 
   getPelicula( id: string ) {
+    
 
     return this.http.get(`${ this.url }/peliculas/${ id }.json`);
 
