@@ -1,7 +1,7 @@
-<h1 class="animated fadeIn">{{ pelicula4.nombre | uppercase }}</h1>
+<h1>{{ pelicula.nombre | uppercase }}</h1>
 <hr>
 
-<div class="row animated fadeIn fast">
+<div class="row">
 
   <div class="col-md-4">
 
@@ -10,25 +10,16 @@
     <a [routerLink]="['/peliculas']" class="btn btn-outline-danger btn-block">Regresar</a>
 
   </div>
-  <div>
-    <label>Nombre</label>
-    <input type="text"
-           class="form-control"
-           placeholder="Nombre de la pelicula"
-           [(ngModel)]="pelicula4.nombre"
-           name="nombre"
-           required>
-</div>
 
   <div class="col-md-8">
-    <h3>{{ pelicula4.nombre }}</h3>
+    <h3>{{ pelicula.nombre }}</h3> <h6>{{ pelicula.direcctor }}</h6>
     <hr>
     <p>
-      {{ pelicula4 }}
+      {{ pelicula.sinopsis }}
     </p>
-    
 
 
   </div>
 
 </div>
+

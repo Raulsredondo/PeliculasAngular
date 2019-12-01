@@ -28,10 +28,11 @@ export class TablaPeliculasComponent implements OnInit {
   }
 
   borrarPelicula( pelicula: PeliculaModel, i: number ) {
-
+    
+    console.log(pelicula);
     Swal.fire({
       title: '¿Está seguro?',
-      text: 'Está seguro que desea borrar a ${ pelicula.nombre }',
+      text: 'Está seguro que desea borrar este registro?',
       showConfirmButton: true,
       showCancelButton: true,
     }).then( resp => {

@@ -10,6 +10,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PeliculasComponent } from './components/peliculas/peliculas.component';
 import { PeliculaTarjetaComponent } from './components/pelicula-tarjeta/pelicula-tarjeta.component';
 import { PeliculaComponent } from './components/pelicula/pelicula.component';
+//Agrega estos módulos
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from '../environments/environment';
+//Formularios
+import { ReactiveFormsModule } from '@angular/forms';
+import { PeliculasService } from '../app/services/peliculas.service'
+
 
 @NgModule({
   declarations: [
@@ -25,9 +33,14 @@ import { PeliculaComponent } from './components/pelicula/pelicula.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    PeliculasService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

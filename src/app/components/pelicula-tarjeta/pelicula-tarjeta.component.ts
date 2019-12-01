@@ -22,7 +22,7 @@ export class PeliculaTarjetaComponent implements OnInit {
 
   verPelicula() {
     // console.log(  this.index );
-    this.router.navigate( ['/pelicula', this.index] );
+    this.router.navigate( ['/pelicula', this.pelicula.id] );
     // this.heroeSeleccionado.emit( this.index );
   }
 
