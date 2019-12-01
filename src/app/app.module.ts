@@ -16,7 +16,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 //Formularios
 import { ReactiveFormsModule } from '@angular/forms';
-import { PeliculasService } from '../app/services/peliculas.service'
+import { PeliculasService } from '../app/services/peliculas.service';
+import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.component'
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PeliculasService } from '../app/services/peliculas.service'
     NavbarComponent,
     PeliculasComponent,
     PeliculaTarjetaComponent,
-    PeliculaComponent
+    PeliculaComponent,
+    SubirArchivoComponent
   ],
   imports: [
     BrowserModule,

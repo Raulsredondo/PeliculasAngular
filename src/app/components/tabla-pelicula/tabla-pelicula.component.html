@@ -1,113 +1,117 @@
 <h1>Héroe <small>Nombre del Héroe</small> </h1>
 <hr>
 
+<script>  
+    function myGeeks() {  
+        var txt = document.getElementById("text_id").defaultValue = "{{URLPublica}}"; 
+      console.log("{{URLPublica}}")
+    }  
+</script>  
 
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger"
-            routerLink="/peliculasTabla">
+    <button class="btn btn-danger" routerLink="/peliculasTabla">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
   </div>
 </div>
-
-
-
+<form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()">
+<div class="form-group">
+    <p class="download" *ngIf="finalizado">URL de descarga: <a href="{{ URLPublica }}" target="_blank">Descargar</a>
+    </p>
+    <label class="file-label"><label>Imagen de pelicula</label>
+      <div class="input-group mb-3">
+          
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile01"
+            aria-describedby="inputGroupFileAddon01" formControlName="archivo" (change)="cambioArchivo($event)">
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+      </div>
+      <img class="imagen" id="blah" [src]="imageSrc" alt="your image" />
+      <img src="{{ URLPublica }}" alt="">
+      <span class="file-cta">
+      </span>
+    </label>
+    <hr>
+    <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success" value="{{porcentaje}}"
+      max="100">{{porcentaje}}%</progress>
+    <button
+      [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
+      [disabled]="!archivoForm.valid">Subir archivo</button>
+  </div>
+</form>
 <div class="row animated fadeIn faster">
   <div class="col">
 
-    <form (ngSubmit)="guardar( f )"
-          #f="ngForm">
-      <div class="form-goup">
-          <div class="container">
-              <div class="form-group col-xs-12 col-sm-6 col-md-4">
-                <label for="banner">Banner:</label>
-                <div class="input-group">
-                    <label class="input-group-btn">
-                  <span class="btn btn-primary btn-file">
-                            Banner <input accept=".jpg,.png,.jpeg,.gif" class="hidden" name="banner" type="file" id="banner">
-                        </span>
-                    </label>
-                    <input class="form-control" id="banner_captura" readonly="readonly" name="banner_captura" type="text" value="">
-                </div>
-            </div>
-      </div>
-      </div>
+    <form (ngSubmit)="guardar( f )" #f="ngForm">
+      
       <div class="form-group">
         <label>Firebase ID</label>
-        <input type="text"
-               class="form-control"
-               placeholder="Firebase ID"
-               [(ngModel)]="pelicula.id"
-               name="id"
-               disabled="disabled">
+        <input type="text" class="form-control" placeholder="Firebase ID" [(ngModel)]="pelicula.id" name="id"
+          disabled="disabled">
         <small class="form-text text-muted">Este campo es autogenerado</small>
       </div>
 
 
+
+
       <div class="form-group">
-          <label>Nombre</label>
-          <input type="text"
-                 class="form-control"
-                 placeholder="Nombre de la pelicula"
-                 [(ngModel)]="pelicula.nombre"
-                 name="nombre"
-                 required>
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Nombre de la pelicula" [(ngModel)]="pelicula.nombre"
+          name="nombre" required onclick="myGeeks()">
       </div>
 
       <div class="form-group">
-          <label>Director</label>
-          <input type="text"
-                 class="form-control"
-                 [(ngModel)]="pelicula.director"
-                 name="direcctor"
-                 placeholder="Direcctor de la Pelicula">
+        <label>Director</label>
+        <input type="text" class="form-control" [(ngModel)]="pelicula.director" name="direcctor"
+          placeholder="Direcctor de la Pelicula">
       </div>
 
       <div class="form-group">
         <label>Sinopsis</label>
         <textarea type="text" class="form-control" [(ngModel)]="pelicula.sinopsis" name="sinopsis"
-        placeholder="Sinopsis de la Pelicula" id="" cols="30" rows="8"></textarea>
-        
+          placeholder="Sinopsis de la Pelicula" id="" cols="30" rows="8"></textarea>
+
       </div>
 
       <div class="form-group">
         <label>Genero</label>
-        
-        <input type="text"
-               class="form-control"
-               [(ngModel)]="pelicula.clasificacion"
-               name="clasificacion"
-               placeholder="clasificacion de la Pelicula">
-    </div>
+
+        <input type="text" class="form-control" [(ngModel)]="pelicula.clasificacion" name="clasificacion"
+          placeholder="clasificacion de la Pelicula">
+      </div>
 
       <div class="form-group">
         <label>Fav</label>
         <br>
 
-        <button *ngIf="pelicula.fav" 
-                (click)="pelicula.fav = false"
-                class="btn btn-outline-warning w-10" type="button">
-                <i class="fas fa-star"></i>
+        <button *ngIf="pelicula.fav" (click)="pelicula.fav = false" class="btn btn-outline-warning w-10" type="button">
+          <i class="fas fa-star"></i>
           Si
         </button>
 
-        <button *ngIf="!pelicula.fav" 
-                (click)="pelicula.fav = true"
-                class="btn btn-outline-warning w-10" type="button">
-              <i class="far fa-star"></i>
-            No
+        <button *ngIf="!pelicula.fav" (click)="pelicula.fav = true" class="btn btn-outline-warning w-10" type="button">
+          <i class="far fa-star"></i>
+          No
         </button>
 
       </div>
 
 
 
+  
+
+    <div class="form-group">
+          <input type="text" id="text_id"  [(ngModel)]="pelicula.imagen" name="imagen" >
+    </div> 
+
+
+
       <hr>
       <div class="form-group text-center">
-        <button type="submit"
-                class="btn btn-primary w-25">
+        <button type="submit" class="btn btn-primary w-25">
           <i class="fa fa-save"></i>
           Guardar
         </button>

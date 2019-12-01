@@ -21,7 +21,7 @@ pelicula: PeliculaModel = new PeliculaModel();
               private _peliculasService: PeliculasService){
 
     this.activatedRoute.params.subscribe( params =>{
-    this._peliculasService.getPelicula2( params['id'] ).subscribe(res => {this.pelicula = res})
+    this._peliculasService.getPelicula( params['id'] ).subscribe(res => {this.pelicula = res})
         // console.log(this.heroe);
     });
   }

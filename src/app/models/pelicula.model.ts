@@ -7,6 +7,7 @@ export class PeliculaModel {
     director?: string;
     sinopsis?: string;
     clasificacion?: string;
+    imagen?: string;
     fav?: boolean;
 
     constructor() {
