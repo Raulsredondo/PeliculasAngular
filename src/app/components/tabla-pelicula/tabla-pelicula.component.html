@@ -24,13 +24,13 @@
       <div class="input-group mb-3">
           
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01"
+          <input type="file" class="custom-file-input" accept="image/*" id="inputGroupFile01"
             aria-describedby="inputGroupFileAddon01" formControlName="archivo" (change)="cambioArchivo($event)">
           <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
       </div>
       <img class="imagen" id="blah" [src]="imageSrc" alt="your image" />
-      <img src="{{ URLPublica }}" alt="">
+      <img class="imagen" src="{{ URLPublica }}" alt="">
       <span class="file-cta">
       </span>
     </label>
@@ -39,7 +39,7 @@
       max="100">{{porcentaje}}%</progress>
     <button
       [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
-      [disabled]="!archivoForm.valid">Subir archivo</button>
+      [disabled]="!archivoForm.valid">Confirmar Foto</button>
   </div>
 </form>
 <div class="row animated fadeIn faster">
@@ -60,7 +60,7 @@
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control" placeholder="Nombre de la pelicula" [(ngModel)]="pelicula.nombre"
-          name="nombre" required onclick="myGeeks()">
+          name="nombre" required>
       </div>
 
       <div class="form-group">
@@ -104,7 +104,7 @@
   
 
     <div class="form-group">
-          <input type="text" id="text_id"  [(ngModel)]="pelicula.imagen" name="imagen" >
+          <input type="text" id="text_id" value="{{ URLPublica }}"[(ngModel)]="pelicula.imagen" name="imagen" >
     </div> 
 
 

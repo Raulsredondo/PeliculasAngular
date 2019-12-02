@@ -29,7 +29,7 @@
     <tr *ngFor="let pelicula of peliculas; let i = index">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ pelicula.nombre }}</td>
-      <td>{{ pelicula.direcctor }}</td>
+      <td>{{ pelicula.director }}</td>
       <td (click)="alerta(pelicula, i)">{{ pelicula.sinopsis }}</td>
       <td>{{ pelicula.clasificacion }}</td>
       <td>

@@ -17,7 +17,7 @@ import { environment } from '../environments/environment';
 //Formularios
 import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasService } from '../app/services/peliculas.service';
-import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.component'
+
 
 
 @NgModule({
@@ -28,8 +28,7 @@ import { SubirArchivoComponent } from './components/subir-archivo/subir-archivo.
     NavbarComponent,
     PeliculasComponent,
     PeliculaTarjetaComponent,
-    PeliculaComponent,
-    SubirArchivoComponent
+    PeliculaComponent
   ],
   imports: [
     BrowserModule,

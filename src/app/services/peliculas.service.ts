@@ -28,10 +28,13 @@ export class PeliculasService {
 
   crearPelicula( pelicula: PeliculaModel ) {
 
+    pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
+
     return this.http.post(`${ this.url }/peliculas.json`, pelicula)
             .pipe(
               map( (resp: any) => {
                 pelicula.id = resp.name;
+                pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
                 return pelicula;
               })
             );
