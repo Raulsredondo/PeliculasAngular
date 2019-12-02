@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class TablaPeliculaComponent implements OnInit {
 
   pelicula: PeliculaModel = new PeliculaModel();
-  imageSrc: string;
+  imageSrc: string = "";
   
 
 
@@ -93,7 +93,7 @@ export class TablaPeliculaComponent implements OnInit {
 
   guardar( form: NgForm ) {
 
-    if ( form.invalid ) {
+    if ( form.invalid && this.pelicula.imagen == "" ) {
       console.log('Formulario no válido');
       return;
     }

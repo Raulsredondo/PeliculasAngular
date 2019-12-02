@@ -1,12 +1,7 @@
-<h1>Héroe <small>Nombre del Héroe</small> </h1>
+<h1>Pelicula</h1>
 <hr>
 
-<script>  
-    function myGeeks() {  
-        var txt = document.getElementById("text_id").defaultValue = "{{URLPublica}}"; 
-      console.log("{{URLPublica}}")
-    }  
-</script>  
+
 
 <div class="row text-right">
   <div class="col">
@@ -18,26 +13,27 @@
 </div>
 <form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()">
 <div class="form-group">
-    <p class="download" *ngIf="finalizado">URL de descarga: <a href="{{ URLPublica }}" target="_blank">Descargar</a>
-    </p>
+
     <label class="file-label"><label>Imagen de pelicula</label>
       <div class="input-group mb-3">
           
         <div class="custom-file">
           <input type="file" class="custom-file-input" accept="image/*" id="inputGroupFile01"
             aria-describedby="inputGroupFileAddon01" formControlName="archivo" (change)="cambioArchivo($event)">
-          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          <label class="custom-file-label" for="inputGroupFile01">Elige una Imagen</label>
         </div>
       </div>
-      <img class="imagen" id="blah" [src]="imageSrc" alt="your image" />
-      <img class="imagen" src="{{ URLPublica }}" alt="">
+      <img class="imagen" id="blah"  [src]="imageSrc" style="overflow:hidden;"/>
+
       <span class="file-cta">
       </span>
     </label>
     <hr>
+    <label class="download" *ngIf="finalizado">Imagen Correcta</label>
+    <hr>
     <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success" value="{{porcentaje}}"
       max="100">{{porcentaje}}%</progress>
-    <button
+    <button class="btn btn-primary"
       [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
       [disabled]="!archivoForm.valid">Confirmar Foto</button>
   </div>
@@ -72,7 +68,7 @@
       <div class="form-group">
         <label>Sinopsis</label>
         <textarea type="text" class="form-control" [(ngModel)]="pelicula.sinopsis" name="sinopsis"
-          placeholder="Sinopsis de la Pelicula" id="" cols="30" rows="8"></textarea>
+          placeholder="Sinopsis de la Pelicula" id="" cols="30" rows="5"></textarea>
 
       </div>
 
@@ -104,7 +100,7 @@
   
 
     <div class="form-group">
-          <input type="text" id="text_id" value="{{ URLPublica }}"[(ngModel)]="pelicula.imagen" name="imagen" >
+          <input type="text" id="text_id" value="{{ URLPublica }}"[(ngModel)]="pelicula.imagen" name="imagen" required>
     </div> 
 
 
