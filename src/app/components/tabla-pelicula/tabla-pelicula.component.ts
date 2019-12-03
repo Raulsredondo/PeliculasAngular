@@ -34,6 +34,7 @@ export class TablaPeliculaComponent implements OnInit {
         .subscribe( (resp: PeliculaModel) => {
           this.pelicula = resp;
           this.pelicula.id = id;
+          this.imageSrc = this.pelicula.imagen;
         });
 
     }
@@ -111,9 +112,12 @@ export class TablaPeliculaComponent implements OnInit {
 
     if ( this.pelicula.id ) {
       peticion = this.peliculasService.actualizarPelicula( this.pelicula );
+      this.imageSrc = this.pelicula.imagen;
+      console.log(this.pelicula.imagen)
     } else {
       peticion = this.peliculasService.crearPelicula( this.pelicula );
     }
+    
 
     peticion.subscribe( resp => {
 

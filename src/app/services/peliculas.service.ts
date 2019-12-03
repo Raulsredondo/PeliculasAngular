@@ -43,6 +43,7 @@ export class PeliculasService {
 
   actualizarPelicula( pelicula: PeliculaModel ) {
 
+    pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
     const peliTemp = {
       ...pelicula
     };

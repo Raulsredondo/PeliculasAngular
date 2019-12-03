@@ -59,4 +59,13 @@ alerta(pelicula: PeliculaModel){
 
 
 }
+
+alerta2(pelicula: PeliculaModel){
+
+  Swal.fire({
+    showConfirmButton: false,
+    imageUrl: pelicula.imagen,
+  imageHeight: 500,
+  });
+}
 }
