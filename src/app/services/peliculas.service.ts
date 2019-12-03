@@ -11,7 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class PeliculasService {
 
-  private url = 'https://angular-ioninc.firebaseio.com/';
+  private url = 'https://bbddangular.firebaseio.com/';
 
 
   constructor( private http: HttpClient, private storage: AngularFireStorage) { }
