@@ -1,7 +1,10 @@
 <h1>Pelicula</h1>
 <hr>
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 <div class="row text-right">
   <div class="col">
@@ -13,7 +16,10 @@
 </div>
 <form [formGroup]="archivoForm" (ngSubmit)="subirArchivo()">
 <div class="form-group">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     <label class="file-label"><label>Imagen de pelicula</label>
       <div class="input-group mb-3">
           
@@ -23,19 +29,29 @@
           <label class="custom-file-label" for="inputGroupFile01">Elige una Imagen</label>
         </div>
       </div>
+<<<<<<< Updated upstream
       <img class="imagen" id="blah"  [src]="imageSrc" style="overflow:hidden;"/>
 
+=======
+      <img class="imagen" id="blah" [src]="imageSrc" />
+      
+>>>>>>> Stashed changes
       <span class="file-cta">
       </span>
     </label>
     <hr>
+<<<<<<< Updated upstream
     <label class="download" *ngIf="finalizado">Imagen Correcta</label>
+=======
+    <label class="download" *ngIf="finalizado"> Imagen Correcta</label>
+>>>>>>> Stashed changes
     <hr>
     <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success" value="{{porcentaje}}"
       max="100">{{porcentaje}}%</progress>
     <button class="btn btn-primary"
       [ngClass]="{'button': true, 'is-success': true, 'is-large': true, 'is-loading': porcentaje > 0 && porcentaje < 100}"
       [disabled]="!archivoForm.valid">Confirmar Foto</button>
+
   </div>
 </form>
 <div class="row animated fadeIn faster">
@@ -100,7 +116,11 @@
   
 
     <div class="form-group">
+<<<<<<< Updated upstream
           <input type="text" id="text_id" value="{{ URLPublica }}"[(ngModel)]="pelicula.imagen" name="imagen" required>
+=======
+          <input type="text" id="text_id" value="{{ URLPublica }}"[(ngModel)]="pelicula.imagen" name="imagen"  style="visibility:hidden">
+>>>>>>> Stashed changes
     </div> 
 
 
