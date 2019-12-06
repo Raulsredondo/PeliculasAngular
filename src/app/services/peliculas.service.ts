@@ -12,7 +12,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class PeliculasService {
 
   private url = 'https://angular-ioninc.firebaseio.com/';
-
+ fav: Boolean;
 
   constructor( private http: HttpClient, private storage: AngularFireStorage) { }
 
@@ -41,7 +41,7 @@ export class PeliculasService {
 
   }
 
-  actualizarPelicula( pelicula: PeliculaModel ) {
+  actualizarPeliculaTabla( pelicula: PeliculaModel ) {
 
     pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
     const peliTemp = {
@@ -50,6 +50,19 @@ export class PeliculasService {
 
     delete peliTemp.id;
 
+    return this.http.put(`${ this.url }/peliculas/${ pelicula.id }.json`, peliTemp);
+
+
+  }
+
+  actualizarPelicula( pelicula: PeliculaModel, fav: Boolean) {
+     
+    pelicula.fav = fav;
+    const peliTemp = {
+      ...pelicula
+    };
+
+    delete peliTemp.id;
     return this.http.put(`${ this.url }/peliculas/${ pelicula.id }.json`, peliTemp);
 
 
@@ -81,6 +94,13 @@ export class PeliculasService {
     return this.http.get(`${ this.url }/peliculas.json`).pipe(map( this.Arreglo ),delay(0));
   }
 
+
+  buscarPeliculas2(pelicula: PeliculaModel){
+
+
+
+  }
+
   buscarPeliculas( termino: string):PeliculaModel[]{
 
     const peliArr: PeliculaModel[] = [];
@@ -91,10 +111,11 @@ export class PeliculasService {
       let heroe = this.getPeliculas[i];
 
       let nombre = heroe.nombre.toLowerCase();
-      let bio = heroe.bio.toLowerCase();
-      let ano = heroe.aparicion;
+      let director = heroe.director.toLowerCase();
+      let sinopsis = heroe.sinopsis.toLowerCase();
+      let clasificacion = heroe.clasificacion.toLowerCase();
 
-      if( nombre.indexOf( termino ) >= 0 || bio.indexOf(termino) >= 0 || ano.indexOf( termino ) >= 0 ){
+      if( nombre.indexOf( termino ) >= 0 || director.indexOf(termino) >= 0 || sinopsis.indexOf( termino ) >= 0 || clasificacion.indexOf( termino ) >= 0 ){
         heroe.idx = i;
         peliArr.push( heroe )
       }

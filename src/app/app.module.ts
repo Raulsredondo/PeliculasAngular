@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 //Formularios
 import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasService } from '../app/services/peliculas.service';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 
 
@@ -28,7 +29,8 @@ import { PeliculasService } from '../app/services/peliculas.service';
     NavbarComponent,
     PeliculasComponent,
     PeliculaTarjetaComponent,
-    PeliculaComponent
+    PeliculaComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,

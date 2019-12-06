@@ -8,7 +8,7 @@ export class PeliculaModel {
     sinopsis?: string;
     clasificacion?: string;
     imagen?: string;
-    fav?: boolean;
+    fav?: Boolean;
 
     constructor() {
         this.fav = false;

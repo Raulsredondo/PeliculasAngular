@@ -89,6 +89,7 @@ export class TablaPeliculaComponent implements OnInit {
 
     referencia.getDownloadURL().subscribe((URL) => {
       this.URLPublica = URL;
+      
     });
   }
 
@@ -111,7 +112,7 @@ export class TablaPeliculaComponent implements OnInit {
     let peticion: Observable<any>;
 
     if ( this.pelicula.id ) {
-      peticion = this.peliculasService.actualizarPelicula( this.pelicula );
+      peticion = this.peliculasService.actualizarPeliculaTabla( this.pelicula );
       this.imageSrc = this.pelicula.imagen;
       console.log(this.pelicula.imagen)
     } else {
