@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor( private router:Router ) { }
+user: firebase.User;
+  constructor( private router:Router, private auth: AuthService ) { }
 
   ngOnInit() {
+    this.auth.getUserState().subscribe(user => {
+      this.user = user;
+    })
+    console.log(this.user)
   }
 
   buscarHeroe( termino:string ){
@@ -18,4 +23,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate( ['/buscar',termino] );
   }
 
+  logout(){
+    this.auth.logout();
+    this.router.navigate(['/login'] );
+  }
 }

@@ -13,11 +13,14 @@ import { PeliculaComponent } from './components/pelicula/pelicula.component';
 //Agrega estos módulos
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 //Formularios
 import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasService } from '../app/services/peliculas.service';
-import { BuscadorComponent } from './components/buscador/buscador.component';
+import { RegistrationComponent } from './auth/registration/registration.component';
+import { LoginComponent } from './auth/login/login.component'
 
 
 
@@ -30,7 +33,8 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     PeliculasComponent,
     PeliculaTarjetaComponent,
     PeliculaComponent,
-    BuscadorComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [
     PeliculasService
