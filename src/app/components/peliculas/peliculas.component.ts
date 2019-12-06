@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PeliculasService } from '..//../services/peliculas.service';
 import { PeliculaModel } from '../../models/pelicula.model'
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-peliculas',
@@ -11,10 +12,10 @@ import { Router } from '@angular/router';
 export class PeliculasComponent implements OnInit {
 
   peliculas:PeliculaModel[] = [];
-
+user: firebase.User;
 
   constructor( private _peliculasService:PeliculasService,
-               private router:Router
+               private router:Router, private auth: AuthService
                 ) {
     // console.log("constructor");
     
@@ -24,7 +25,6 @@ export class PeliculasComponent implements OnInit {
     this._peliculasService.getPeliculas().subscribe(res => {this.peliculas = res});
     console.log(this.peliculas);
 
-  
     // console.log( this.heroes );
   }
 

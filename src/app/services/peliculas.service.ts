@@ -11,7 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class PeliculasService {
 
-  private url = 'https://angular-ioninc.firebaseio.com/';
+  private url = 'https://angularpeliculas-97236.firebaseio.com';
 
 
   constructor( private http: HttpClient, private storage: AngularFireStorage) { }
@@ -27,14 +27,12 @@ export class PeliculasService {
     }
 
   crearPelicula( pelicula: PeliculaModel ) {
-
-    pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
-
+    pelicula.imagen = (<HTMLInputElement>document.getElementById("url_publica")).value;
     return this.http.post(`${ this.url }/peliculas.json`, pelicula)
             .pipe(
               map( (resp: any) => {
                 pelicula.id = resp.name;
-                pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
+                pelicula.imagen = (<HTMLInputElement>document.getElementById("url_publica")).value;
                 return pelicula;
               })
             );
