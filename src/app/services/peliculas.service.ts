@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PeliculaModel } from '../models/Pelicula.model';
 import { map, delay } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+
 
 
 
@@ -11,20 +17,110 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class PeliculasService {
 
+  private eventAuthError = new BehaviorSubject<string>("");
+  idUser: String;
+  eventAuthError$ = this.eventAuthError.asObservable();
+  newUser: any;
+
   private url = 'https://angular-ioninc.firebaseio.com/';
  fav: Boolean;
+ 
+ 
 
-  constructor( private http: HttpClient, private storage: AngularFireStorage) { }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private  db: AngularFirestore,
+    private router: Router,
+    private http: HttpClient, 
+    private storage: AngularFireStorage) { }
+
+
+    ngOnInit(){
+      console.log(this.idUser)
+    }
 
     //Tarea para subir archivo
     tareaCloudStorage(nombreArchivo: string, datos: any) {
       return this.storage.upload(nombreArchivo, datos);
     }
+    
   
     //Referencia del archivo
     referenciaCloudStorage(nombreArchivo: string) {
       return this.storage.ref(nombreArchivo);
     }
+
+
+
+    //-------------------------------------------------Usuario-----------------------------------------------------
+
+
+
+  getUserState(){
+    return this.afAuth.authState;
+  }
+
+  login(email: string, password: string){
+    this.afAuth.auth.signInWithEmailAndPassword(email,password)
+    .catch(error => {
+      this.eventAuthError.next(error)
+    })
+    .then(userCredential => {
+if(userCredential){
+this.router.navigate(['/peliculasTabla'])
+this.idUser = userCredential.user.uid;
+}
+    })
+  }
+
+  createUser(user) {
+    console.log(user);
+    this.afAuth.auth.createUserWithEmailAndPassword( user.email, user.password)
+      .then( userCredential => {
+        this.newUser = user;
+        console.log(userCredential);
+        userCredential.user.updateProfile( {
+          displayName: user.firstName + ' ' + user.lastName
+        });
+
+        this.insertUserData(userCredential)
+          .then(() => {
+            this.router.navigate(['/peliculasTabla']);
+          });
+      })
+      .catch( error => {
+        this.eventAuthError.next(error);
+      });
+  }
+
+  
+
+  insertUserData(userCredential: firebase.auth.UserCredential){
+    this.idUser = userCredential.user.uid;
+    return this.db.doc(`Users/${userCredential.user.uid}`).set({
+      email:   this.newUser.email,
+      firstname: this.newUser.firstName,
+      lastname: this.newUser.lastName,
+      role: 'usuario'
+    })
+  };
+
+
+
+
+    logout() {
+      console.log(this.idUser);
+      return this.afAuth.auth.signOut();
+    }
+
+
+
+
+
+
+    //-------------------------------------------------Peliculas-----------------------------------------------------
+
+
 
   crearPelicula( pelicula: PeliculaModel ) {
 
@@ -71,6 +167,7 @@ export class PeliculasService {
   borrarPelicula( id: string ) {
 
     return this.http.delete(`${ this.url }/peliculas/${ id }.json`);
+    console.log(this.idUser);
 
   }
 
@@ -92,6 +189,7 @@ export class PeliculasService {
   getPeliculas() {
     
     return this.http.get(`${ this.url }/peliculas.json`).pipe(map( this.Arreglo ),delay(0));
+    console.log(this.idUser);
   }
 
 
@@ -136,11 +234,16 @@ export class PeliculasService {
 
       peliculas.push( pelicula );
     });
-
+    
 
     return peliculas;
 
   }
 
 
-}
+
+
+  
+
+  }
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { PeliculasService } from '../../services/peliculas.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 authError: any;
 user: firebase.User;
-  constructor(private auth: AuthService) { }
+  constructor(private auth: PeliculasService) { }
 
   ngOnInit() {
     this.auth.eventAuthError$.subscribe(data =>{
