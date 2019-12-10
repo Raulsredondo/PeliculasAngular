@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { PeliculasService } from '../../services/peliculas.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ export class RegistrationComponent implements OnInit {
 
 authError: any;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: PeliculasService, private router: Router) { }
 
   ngOnInit() {
     this.auth.eventAuthError$.subscribe(data => {

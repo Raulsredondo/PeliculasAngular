@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { PeliculasService } from '../../services/peliculas.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 user: firebase.User;
-  constructor( private router:Router, private auth: AuthService ) { }
+  constructor( private router:Router, private auth: PeliculasService ) { }
 
   ngOnInit() {
     this.auth.getUserState().subscribe(user => {
