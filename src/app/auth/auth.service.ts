@@ -11,7 +11,6 @@ import { UsuarioModel } from '../models/Usuario.model';
   providedIn: 'root'
 })
 export class AuthService {
-  hola: string = '/peliculasTabla';
   private url = 'https://angular-ioninc.firebaseio.com/';
 
   private eventAuthError = new BehaviorSubject<string>("");
@@ -36,6 +35,7 @@ export class AuthService {
       .then(userCredential => {
 if(userCredential){
   this.router.navigate(['/peliculasTabla'])
+  console.log(this.afAuth.auth.currentUser.uid);
 }
       })
     }
@@ -51,30 +51,25 @@ if(userCredential){
           });
   
           this.insertUserData(userCredential)
+            .then(() => {
+              this.router.navigate(['/peliculas']);
+            });
         })
         .catch( error => {
           this.eventAuthError.next(error);
         });
     }
 
-    
+      insertUserData(userCredential: firebase.auth.UserCredential){
+        return this.db.doc(`Users/${userCredential.user.uid}`).set({
+          email:   this.newUser.email,
+          firstname: this.newUser.firstName,
+          lastname: this.newUser.lastName,
+          role: 'usuario'
+        })
+      }
 
-      insertUserData( userCredential: firebase.auth.UserCredential ) {
-       const usuario: UsuarioModel = new UsuarioModel
 
-    return this.http.post(`${ this.url }/usuarios.json`, usuario)
-            .pipe(
-              map( (resp: any) => {
-                usuario.id = resp.userCredential.user.uid;
-                usuario.email = this.newUser.email;
-                usuario.firstname = this.newUser.firstName;
-                usuario.lastname = this.newUser.lastName;
-                usuario.role = 'usuario';
-                return usuario;
-              })
-            );
-
-  }
 
 
 
