@@ -5,9 +5,9 @@ import { map, delay } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 
@@ -21,6 +21,12 @@ export class PeliculasService {
   idUser: String;
   eventAuthError$ = this.eventAuthError.asObservable();
   newUser: any;
+  peliculas: PeliculaModel;
+  peliculasFav: Observable<PeliculaModel[]>;
+  private pelisFavCollection: AngularFirestoreCollection<PeliculaModel>;
+
+
+
 
   private url = 'https://angular-ioninc.firebaseio.com/';
  fav: Boolean;
@@ -32,7 +38,13 @@ export class PeliculasService {
     private  db: AngularFirestore,
     private router: Router,
     private http: HttpClient, 
-    private storage: AngularFireStorage) { }
+    private storage: AngularFireStorage) {
+
+
+
+
+
+    }
 
 
     ngOnInit(){
@@ -97,15 +109,50 @@ this.idUser = userCredential.user.uid;
 
   insertUserData(userCredential: firebase.auth.UserCredential){
     this.idUser = userCredential.user.uid;
+    
     return this.db.doc(`Users/${userCredential.user.uid}`).set({
       email:   this.newUser.email,
       firstname: this.newUser.firstName,
       lastname: this.newUser.lastName,
+      peliculasfav: [],
       role: 'usuario'
     })
   };
 
 
+  uddateFav(peliculaFav: PeliculaModel ){
+    console.log(peliculaFav)
+    console.log(this.afAuth.auth.currentUser.uid)
+   
+
+  
+     this.db.doc(`Users/${this.afAuth.auth.currentUser.uid}`).collection(`peliculasfav`).add({
+        peliculaFav
+      })
+   
+     
+
+  }
+
+  removefav(id:string){
+    console.log(id);
+    return this.pelisFavCollection.doc(id).delete();
+  }
+
+  getFav(){
+    this.pelisFavCollection = this.db.collection('Users').doc(this.afAuth.auth.currentUser.uid).collection('peliculasfav');
+    this.peliculasFav = this.pelisFavCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      })
+    );
+    return this.peliculasFav
+
+  }
 
 
     logout() {

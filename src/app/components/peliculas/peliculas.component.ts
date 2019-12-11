@@ -24,9 +24,13 @@ export class PeliculasComponent implements OnInit {
     this._peliculasService.getPeliculas().subscribe(res => {this.peliculas = res});
     console.log(this.peliculas);
 
+
   
     // console.log( this.heroes );
   }
+
+
+
 
 
   verPelicula( hola: PeliculaModel ){

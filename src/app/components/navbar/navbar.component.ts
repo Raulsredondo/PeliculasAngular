@@ -9,7 +9,7 @@ import { PeliculasService } from '../../services/peliculas.service';
 })
 export class NavbarComponent implements OnInit {
 user: firebase.User;
-  constructor( private router:Router, private auth: PeliculasService ) { }
+  constructor( private router:Router, private auth: PeliculasService, private holahd: PeliculasService ) { }
 
   ngOnInit() {
     this.auth.getUserState().subscribe(user => {
@@ -26,5 +26,8 @@ user: firebase.User;
   logout(){
     this.auth.logout();
     this.router.navigate(['/login'] );
+  }
+  hola(){
+    console.log(this.user.uid)
   }
 }

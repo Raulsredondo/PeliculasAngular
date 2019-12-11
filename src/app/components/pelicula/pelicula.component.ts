@@ -28,6 +28,12 @@ pelicula: PeliculaModel = new PeliculaModel();
     });
   }
 
+
+  addFav(){
+    this._peliculasService.uddateFav( this.pelicula );
+    console.log(this.pelicula)
+  }
+
   guardar(fav: Boolean ) {
 
 
@@ -44,8 +50,10 @@ pelicula: PeliculaModel = new PeliculaModel();
 
 
     let peticion: Observable<any>;
+    console.log(fav)
 
-      peticion = this._peliculasService.actualizarPelicula( this.pelicula,fav);
+      peticion = this._peliculasService.actualizarPelicula( this.pelicula, fav);
+     
 
 
     
