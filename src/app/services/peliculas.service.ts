@@ -29,7 +29,7 @@ export class PeliculasService {
 
 
   private url = 'https://angular-ioninc.firebaseio.com/';
- fav: Boolean;
+  fav: Boolean;
  
  
 
@@ -42,7 +42,7 @@ export class PeliculasService {
 
 
 
-
+      
 
     }
 
@@ -125,18 +125,16 @@ this.idUser = userCredential.user.uid;
     console.log(this.afAuth.auth.currentUser.uid)
    
 
-  
-     this.db.doc(`Users/${this.afAuth.auth.currentUser.uid}`).collection(`peliculasfav`).add({
-        peliculaFav
-      })
-   
+    this.db.collection('Users').doc(this.afAuth.auth.currentUser.uid).collection('peliculasfav').doc(peliculaFav.id).set(peliculaFav);
+     
      
 
   }
 
   removefav(id:string){
     console.log(id);
-    return this.pelisFavCollection.doc(id).delete();
+    console.log(this.afAuth.auth.currentUser.uid)
+    return this.db.collection('Users').doc(this.afAuth.auth.currentUser.uid).collection('peliculasfav').doc(id).delete();
   }
 
   getFav(){
@@ -182,6 +180,18 @@ this.idUser = userCredential.user.uid;
               })
             );
 
+  }
+
+
+  addPelicula(peli: PeliculaModel){
+    console.log(peli);
+   return this.db.collection('peliculas').add(peli);
+  }
+
+
+  updatePelicula(peli: PeliculaModel, id: string){
+    console.log(id);
+  return this.db.collection('peliculas').doc(id).update(peli);
   }
 
   actualizarPeliculaTabla( pelicula: PeliculaModel ) {

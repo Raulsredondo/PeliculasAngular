@@ -15,12 +15,17 @@ import Swal from 'sweetalert2';
 export class PeliculaComponent{
 
 fav: Boolean;
+peliId:string;
 
 pelicula: PeliculaModel = new PeliculaModel();
 
 
   constructor( private activatedRoute: ActivatedRoute,
-              private _peliculasService: PeliculasService){
+              private _peliculasService: PeliculasService,
+              private route:ActivatedRoute){
+
+
+                this.peliId=this.route.snapshot.params['id'];
 
     this.activatedRoute.params.subscribe( params =>{
     this._peliculasService.getPelicula( params['id'] ).subscribe(res => {this.pelicula = res})
@@ -31,7 +36,12 @@ pelicula: PeliculaModel = new PeliculaModel();
 
   addFav(){
     this._peliculasService.uddateFav( this.pelicula );
-    console.log(this.pelicula)
+    console.log(this.pelicula);
+  }
+  deleteFav(){
+    this._peliculasService.removefav(this.peliId)
+    console.log(this.peliId);
+
   }
 
   guardar(fav: Boolean ) {

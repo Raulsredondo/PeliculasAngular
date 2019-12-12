@@ -16,8 +16,19 @@ import Swal from 'sweetalert2';
 })
 export class TablaPeliculaComponent implements OnInit {
 
-  pelicula: PeliculaModel = new PeliculaModel();
+  pelicula: PeliculaModel;
+
+
+  pelicula2: PeliculaModel={
+   
+    nombre: "",
+    director: "",
+    sinopsis: "",
+    clasificacion: "",
+    imagen: "",
+    }
   imageSrc: string = "";
+  peliculaId: string;
   
 
 
@@ -33,7 +44,7 @@ export class TablaPeliculaComponent implements OnInit {
       this.peliculasService.getPelicula( id )
         .subscribe( (resp: PeliculaModel) => {
           this.pelicula = resp;
-          this.pelicula.id = id;
+          this.peliculaId = id;
           this.imageSrc = this.pelicula.imagen;
         });
 
@@ -93,13 +104,26 @@ export class TablaPeliculaComponent implements OnInit {
     });
   }
 
-  guardar( form: NgForm ) {
 
-    if ( form.invalid && this.pelicula.imagen == "" ) {
-      console.log('Formulario no válido');
-      return;
-    }
-    console.log(form)
+
+  guardarPelis(){
+
+     if(this.peliculaId){
+       //update
+       this.peliculasService.updatePelicula(this.pelicula2, this.peliculaId)
+  
+     }else{
+       //add new
+  
+       this.peliculasService.addPelicula(this.pelicula2)
+      }
+   }
+
+  guardar( ) {
+
+
+    this.peliculasService.addPelicula( this.pelicula2 );
+   
     Swal.fire({
       title: 'Espere',
       text: 'Guardando información',
@@ -116,17 +140,19 @@ export class TablaPeliculaComponent implements OnInit {
       this.imageSrc = this.pelicula.imagen;
       console.log(this.pelicula.imagen)
     } else {
-      peticion = this.peliculasService.crearPelicula( this.pelicula );
+             
+       
+       Swal.fire({
+        title: this.pelicula.nombre,
+        text: 'Se actualizó correctamente',
+
+      });
     }
     
 
     peticion.subscribe( resp => {
 
-      Swal.fire({
-        title: this.pelicula.nombre,
-        text: 'Se actualizó correctamente',
 
-      });
 
     });
 
