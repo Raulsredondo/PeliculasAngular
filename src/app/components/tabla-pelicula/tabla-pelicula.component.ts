@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class TablaPeliculaComponent implements OnInit {
 
   pelicula: PeliculaModel = new PeliculaModel();
-  imageSrc: string;
+  imageSrc: string = "";
   
 
 
@@ -34,6 +34,7 @@ export class TablaPeliculaComponent implements OnInit {
         .subscribe( (resp: PeliculaModel) => {
           this.pelicula = resp;
           this.pelicula.id = id;
+          this.imageSrc = this.pelicula.imagen;
         });
 
     }
@@ -88,12 +89,13 @@ export class TablaPeliculaComponent implements OnInit {
 
     referencia.getDownloadURL().subscribe((URL) => {
       this.URLPublica = URL;
+      
     });
   }
 
   guardar( form: NgForm ) {
 
-    if ( form.invalid ) {
+    if ( form.invalid && this.pelicula.imagen == "" ) {
       console.log('Formulario no válido');
       return;
     }
@@ -110,10 +112,13 @@ export class TablaPeliculaComponent implements OnInit {
     let peticion: Observable<any>;
 
     if ( this.pelicula.id ) {
-      peticion = this.peliculasService.actualizarPelicula( this.pelicula );
+      peticion = this.peliculasService.actualizarPeliculaTabla( this.pelicula );
+      this.imageSrc = this.pelicula.imagen;
+      console.log(this.pelicula.imagen)
     } else {
       peticion = this.peliculasService.crearPelicula( this.pelicula );
     }
+    
 
     peticion.subscribe( resp => {
 

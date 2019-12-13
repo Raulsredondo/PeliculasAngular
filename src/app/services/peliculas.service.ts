@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PeliculaModel } from '../models/Pelicula.model';
 import { map, delay } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 
 
@@ -11,20 +17,122 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class PeliculasService {
 
+  private eventAuthError = new BehaviorSubject<string>("");
+  idUser: String;
+  eventAuthError$ = this.eventAuthError.asObservable();
+  newUser: any;
+  peliculas: PeliculaModel;
+  peliculasFav: Observable<PeliculaModel[]>;
+  private pelisFavCollection: AngularFirestoreCollection<PeliculaModel>;
+
+
+
+
   private url = 'https://angular-ioninc.firebaseio.com/';
+ fav: Boolean;
+ 
+ 
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private  db: AngularFirestore,
+    private router: Router,
+    private http: HttpClient, 
+    private storage: AngularFireStorage) {
 
 
-  constructor( private http: HttpClient, private storage: AngularFireStorage) { }
+
+
+
+    }
+
+
+    ngOnInit(){
+      console.log(this.idUser)
+    }
 
     //Tarea para subir archivo
     tareaCloudStorage(nombreArchivo: string, datos: any) {
       return this.storage.upload(nombreArchivo, datos);
     }
+    
   
     //Referencia del archivo
     referenciaCloudStorage(nombreArchivo: string) {
       return this.storage.ref(nombreArchivo);
     }
+
+
+
+    //-------------------------------------------------Usuario-----------------------------------------------------
+
+
+
+  getUserState(){
+    return this.afAuth.authState;
+  }
+
+  login(email: string, password: string){
+    this.afAuth.auth.signInWithEmailAndPassword(email,password)
+    .catch(error => {
+      this.eventAuthError.next(error)
+    })
+    .then(userCredential => {
+if(userCredential){
+this.router.navigate(['/peliculasTabla'])
+this.idUser = userCredential.user.uid;
+}
+    })
+  }
+
+  createUser(user) {
+    console.log(user);
+    this.afAuth.auth.createUserWithEmailAndPassword( user.email, user.password)
+      .then( userCredential => {
+        this.newUser = user;
+        console.log(userCredential);
+        userCredential.user.updateProfile( {
+          displayName: user.firstName + ' ' + user.lastName
+        });
+
+        this.insertUserData(userCredential)
+          .then(() => {
+            this.router.navigate(['/peliculasTabla']);
+          });
+      })
+      .catch( error => {
+        this.eventAuthError.next(error);
+      });
+  }
+
+  
+
+  insertUserData(userCredential: firebase.auth.UserCredential){
+    this.idUser = userCredential.user.uid;
+    
+    return this.db.doc(`Users/${userCredential.user.uid}`).set({
+      email:   this.newUser.email,
+      firstname: this.newUser.firstName,
+      lastname: this.newUser.lastName,
+      peliculasfav: [],
+      role: 'usuario'
+    })
+  };
+
+
+    logout() {
+      console.log(this.idUser);
+      return this.afAuth.auth.signOut();
+    }
+
+
+
+
+
+
+    //-------------------------------------------------Peliculas-----------------------------------------------------
+
+
 
   crearPelicula( pelicula: PeliculaModel ) {
 
@@ -41,8 +149,9 @@ export class PeliculasService {
 
   }
 
-  actualizarPelicula( pelicula: PeliculaModel ) {
+  actualizarPeliculaTabla( pelicula: PeliculaModel ) {
 
+    pelicula.imagen =(<HTMLInputElement>document.getElementById("text_id")).value;
     const peliTemp = {
       ...pelicula
     };
@@ -54,9 +163,23 @@ export class PeliculasService {
 
   }
 
+  actualizarPelicula( pelicula: PeliculaModel, fav: Boolean) {
+     
+    pelicula.fav = fav;
+    const peliTemp = {
+      ...pelicula
+    };
+
+    delete peliTemp.id;
+    return this.http.put(`${ this.url }/peliculas/${ pelicula.id }.json`, peliTemp);
+
+
+  }
+
   borrarPelicula( id: string ) {
 
     return this.http.delete(`${ this.url }/peliculas/${ id }.json`);
+    console.log(this.idUser);
 
   }
 
@@ -78,6 +201,14 @@ export class PeliculasService {
   getPeliculas() {
     
     return this.http.get(`${ this.url }/peliculas.json`).pipe(map( this.Arreglo ),delay(0));
+    console.log(this.idUser);
+  }
+
+
+  buscarPeliculas2(pelicula: PeliculaModel){
+
+
+
   }
 
   buscarPeliculas( termino: string):PeliculaModel[]{
@@ -90,10 +221,11 @@ export class PeliculasService {
       let heroe = this.getPeliculas[i];
 
       let nombre = heroe.nombre.toLowerCase();
-      let bio = heroe.bio.toLowerCase();
-      let ano = heroe.aparicion;
+      let director = heroe.director.toLowerCase();
+      let sinopsis = heroe.sinopsis.toLowerCase();
+      let clasificacion = heroe.clasificacion.toLowerCase();
 
-      if( nombre.indexOf( termino ) >= 0 || bio.indexOf(termino) >= 0 || ano.indexOf( termino ) >= 0 ){
+      if( nombre.indexOf( termino ) >= 0 || director.indexOf(termino) >= 0 || sinopsis.indexOf( termino ) >= 0 || clasificacion.indexOf( termino ) >= 0 ){
         heroe.idx = i;
         peliArr.push( heroe )
       }
@@ -114,11 +246,16 @@ export class PeliculasService {
 
       peliculas.push( pelicula );
     });
-
+    
 
     return peliculas;
 
   }
 
 
-}
+
+
+  
+
+  }
+

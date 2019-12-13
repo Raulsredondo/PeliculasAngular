@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class TablaPeliculasComponent implements OnInit {
 
   peliculas: PeliculaModel[] = [];
+  peliculasFav: PeliculaModel[] = [];
   cargando = false;
 
 
@@ -25,7 +26,14 @@ export class TablaPeliculasComponent implements OnInit {
         this.cargando = false;
       });
 
+      
+      console.log(this.peliculas)
+      for (let fav of this.peliculas){
+        console.log(fav);
+      }
+
   }
+
 
   borrarPelicula( pelicula: PeliculaModel, i: number ) {
     
@@ -49,6 +57,9 @@ export class TablaPeliculasComponent implements OnInit {
 
 
   }
+
+
+
 alerta(pelicula: PeliculaModel){
 
   Swal.fire({
@@ -58,5 +69,14 @@ alerta(pelicula: PeliculaModel){
   });
 
 
+}
+
+alerta2(pelicula: PeliculaModel){
+
+  Swal.fire({
+    showConfirmButton: false,
+    imageUrl: pelicula.imagen,
+  imageHeight: 500,
+  });
 }
 }

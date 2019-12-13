@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router'
 
 import { PeliculasService } from '../../services/peliculas.service';
 import { PeliculaModel } from '../../models/pelicula.model';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pelicula',
@@ -12,7 +14,7 @@ import { from } from 'rxjs';
 })
 export class PeliculaComponent{
 
-
+fav: Boolean;
 
 pelicula: PeliculaModel = new PeliculaModel();
 
@@ -25,6 +27,49 @@ pelicula: PeliculaModel = new PeliculaModel();
         // console.log(this.heroe);
     });
   }
+
+
+ 
+  guardar(fav: Boolean ) {
+
+
+    this.pelicula.id = this.activatedRoute.snapshot.params.id;
+    console.log(this.pelicula.id);
+    console.log(this.pelicula);
+    Swal.fire({
+      title: 'Espere',
+      text: 'Guardando información',
+
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+
+
+    let peticion: Observable<any>;
+    console.log(fav)
+
+      peticion = this._peliculasService.actualizarPelicula( this.pelicula, fav);
+     
+
+
+    
+
+    peticion.subscribe( resp => {
+
+      Swal.fire({
+        title: this.pelicula.nombre,
+        text: 'Se actualizó correctamente',
+
+      });
+
+    });
+
+
+
+  }
+
 }
+
+
 
 

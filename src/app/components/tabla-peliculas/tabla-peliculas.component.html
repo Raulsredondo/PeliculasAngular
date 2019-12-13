@@ -8,6 +8,7 @@
       <i class="fa fa-plus"></i>
       Agregar
     </button>
+    
   </div>
 </div>
 
@@ -17,6 +18,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Cartelera</th>
       <th scope="col">Nombre</th>
       <th scope="col">Director</th>
       <th scope="col">Sinopsis</th>
@@ -28,6 +30,7 @@
   <tbody>
     <tr *ngFor="let pelicula of peliculas; let i = index">
       <th scope="row">{{ i + 1 }}</th>
+      <td (click)="alerta2(pelicula, i)"><img src="{{ pelicula.imagen }}" alt="" style="width: 50px; height: 80px;"></td>
       <td>{{ pelicula.nombre }}</td>
       <td>{{ pelicula.director }}</td>
       <td (click)="alerta(pelicula, i)">{{ pelicula.sinopsis }}</td>
