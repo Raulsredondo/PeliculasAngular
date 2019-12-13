@@ -120,41 +120,6 @@ this.idUser = userCredential.user.uid;
   };
 
 
-  uddateFav(peliculaFav: PeliculaModel ){
-    console.log(peliculaFav)
-    console.log(this.afAuth.auth.currentUser.uid)
-   
-
-  
-     this.db.doc(`Users/${this.afAuth.auth.currentUser.uid}`).collection(`peliculasfav`).add({
-        peliculaFav
-      })
-   
-     
-
-  }
-
-  removefav(id:string){
-    console.log(id);
-    return this.pelisFavCollection.doc(id).delete();
-  }
-
-  getFav(){
-    this.pelisFavCollection = this.db.collection('Users').doc(this.afAuth.auth.currentUser.uid).collection('peliculasfav');
-    this.peliculasFav = this.pelisFavCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return {id, ...data};
-        });
-      })
-    );
-    return this.peliculasFav
-
-  }
-
-
     logout() {
       console.log(this.idUser);
       return this.afAuth.auth.signOut();

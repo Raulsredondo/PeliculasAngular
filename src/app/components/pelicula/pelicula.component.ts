@@ -29,11 +29,7 @@ pelicula: PeliculaModel = new PeliculaModel();
   }
 
 
-  addFav(){
-    this._peliculasService.uddateFav( this.pelicula );
-    console.log(this.pelicula)
-  }
-
+ 
   guardar(fav: Boolean ) {
 
 
